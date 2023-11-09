@@ -5,8 +5,12 @@ local PlayerController = {}
 function PlayerController.run(scene, player, dt)
     if love.keyboard.isDown('d') then
         player.x = player.x + (player.speed * dt)
+        player.sprite = player.sprites.right
     elseif love.keyboard.isDown('a') then
         player.x = player.x - (player.speed * dt)
+        player.sprite = player.sprites.left
+    else 
+        player.sprite = player.sprites.default
     end 
 
     if love.keyboard.isDown('w') then
@@ -20,7 +24,6 @@ function PlayerController.run(scene, player, dt)
         proj:load(scene, player.x, player.y)
         scene:add(proj)
     end 
-
 end
 
 -- called by callback 'keypressed' in game loop

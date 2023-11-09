@@ -1,7 +1,9 @@
+-- The GameObjects class is the abstract base class from which almost all on screen objects should inherit
+-- The GameObject
 local GameObject = {}
 
 function GameObject:new() 
-    local instance = {_name="game_object"} -- sets type if passed in 
+    local instance = {name="game_object", active = true, } -- sets type if passed in 
     setmetatable(instance, self)
     self.__index = self
     return instance
@@ -30,16 +32,33 @@ end
 -- sets the GameObjects sID; 
 -- the instances sID is used by the Scene class to add and remove GameObjects
 function GameObject:setID(id)
-    self._sID = id
+    self.sID = id
 end 
 
 -- getter for sID
 function GameObject:getID()
-    return self._sID
+    return self.sID
 end
 
+-- getter for _name
 function GameObject:name()
-    return self._name
+    return self.name
 end
+
+-- getter for isActive
+function GameObject:isActive()
+    return self.active
+end
+
+-- setter for isActive
+function GameObject:setActive(bool)
+    self.active = bool
+end
+
+function GameObject:onCollision()
+
+end
+
+
 
 return GameObject

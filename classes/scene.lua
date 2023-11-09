@@ -6,34 +6,36 @@ function Scene:new(objects)
     local instance = {}
     setmetatable(instance, self)
     self.__index = self
-    instance._objects = objects or {} -- empty if no parameter is passed
+    instance.objects = objects or {} -- empty if no parameter is passed
     instance._size = 0
-    instance._counter = 1 -- used to generate sID values
+    instance._counter = 0 -- used to generate sID values
     return instance
 end
 
 -- getter for a Scene's objects
 function Scene:objects()
-    return self._objects
+    return self.objects
 end
 
 function Scene:load()
-    for key, object in pairs(self._objects) do 
+    for _, object in pairs(self.objects) do 
         object:load()
     end
 end
 
 -- loops over all of the objects and invokes their draw method 
 function Scene:draw()
-    for key, object in pairs(self._objects) do 
+    for _, object in pairs(self.objects) do 
         object:draw()
     end
 end
 
 -- loops over all of the objects and invokes their update method 
 function Scene:update(dt)
-    for key, object in pairs(self._objects) do 
-        object:update(dt)
+    for _, object in pairs(self.objects) do 
+        if object:isActive() then
+            object:update(dt)
+        end
     end
 end
 
@@ -45,24 +47,23 @@ function Scene:add(o)
         self._counter = self._counter + 1
 
         -- adds to the Scenes objects at the string value of counter
-        self._objects[tostring(self._counter)] = o
-        o:setID(tostring(self._counter))
+        self.objects["GameObject" .. tostring(self._counter)] = o
+        o:setID("GameObject" .. tostring(self._counter))
     end
-    self:debug()
 end
 
-function Scene:remove(o)
+-- this function is bogus
+function Scene:remove(o)    
     if o:isGameObject() then
-        table.remove(self._objects, o:getID())
+        self.objects[o:getID()] = nil -- delete the object
     end
     self._size = self._size - 1
-    self:debug()
 end
 
 function Scene:debug(canvas)
     -- love.graphics.setCanvas(canvas) -- load canvas
     local sceneList = {}
-    for key, object in pairs(self._objects) do 
+    for key, object in pairs(self.objects) do 
         sceneList[object:name()] = (sceneList[object:name()] or 0) + 1
     end
     local lineCount = 1
@@ -73,5 +74,19 @@ function Scene:debug(canvas)
     -- love.graphics.setCanvas() -- unload canvas
 end 
 
+-- REMOVE AFTER DEBUG
+function Scene:printObjs()
+    for key, object in pairs(self.objects) do
+        print(object:name() .. " " .. key)
+    end
+end
+
+function Scene:flush()
+    for key, object in pairs(self.objects) do
+        if not object:isActive() then -- remove from scene if not active
+            self:remove(object)
+        end
+    end
+end
 
 return Scene
