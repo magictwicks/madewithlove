@@ -1,12 +1,12 @@
 s = require("settings")
 
 -- Player "inherits" from the GameObject class
-GameObject = require("classes/base/game_object")
-Player = GameObject:new()
+Entity = require("classes/base/entity")
+Player = Entity:new()
 
 -- defines the class variables for the player object (might need to reevaluate structure)
 function Player:load()
-    self._name = "player"
+    self.name = "player"
     self.sprites = {
         left = love.graphics.newImage("/Assets/Sprites/Player/left.png"),
         right = love.graphics.newImage("/Assets/Sprites/Player/right.png"),
@@ -26,5 +26,9 @@ end
 function Player:setSprite(spr)
     self.sprite = self.sprites[spr]
 end 
+
+function Player:onCollisionEnter()
+
+end
 
 return Player

@@ -26,7 +26,42 @@ function Base:new()
     -- the __index method is called when you try and access a key not present in the table
     -- this is primarily used to "inherit" from other lua classes; here it sets a base case of sorts
     self.__index = self
+    
+    instance.x = 10
+    
+    return instance
+end
+
+function Base:foo()
+    print('Base foo')
+end
+
+function Base:bar()
+    print('Base bar')
+end
+
+function Base:getX()
+    return self.x
 end
 
 local myClass = Base:new() -- setting the table "myClass" to inherit from Base 
+
+function myClass:new()
+    local instance = {}
+    setmetatable(instance, self)
+    self.__index = self
+    self.x = 12
+    return instance
+end
+
+function myClass:foo()
+    print('Myclass foo')
+end
+
+local class = myClass:new()
+
+class:foo()
+class:bar()
+print(class.x)
+print(class:getX())
 

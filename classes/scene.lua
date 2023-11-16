@@ -2,11 +2,12 @@
 local Scene = {}
 
 -- creates and returns a new instance of a scnene
-function Scene:new(objects)
+function Scene:new(objects, collides)
     local instance = {}
     setmetatable(instance, self)
     self.__index = self
     instance.objects = objects or {} -- empty if no parameter is passed
+    instance.collides = collides or false -- false by default
     instance._size = 0
     instance._counter = 0 -- used to generate sID values
     return instance
@@ -36,6 +37,12 @@ function Scene:update(dt)
         if object:isActive() then
             object:update(dt)
         end
+        if self.collides then
+            -- implement collision detection
+            for _, entity in pairs(self.objects) do
+                
+            end
+        end 
     end
 end
 
@@ -64,7 +71,7 @@ function Scene:debug(canvas)
     -- love.graphics.setCanvas(canvas) -- load canvas
     local sceneList = {}
     for key, object in pairs(self.objects) do 
-        sceneList[object:name()] = (sceneList[object:name()] or 0) + 1
+        sceneList[object:getName()] = (sceneList[object:getName()] or 0) + 1
     end
     local lineCount = 1
     for key, val in pairs(sceneList) do 
@@ -77,7 +84,7 @@ end
 -- REMOVE AFTER DEBUG
 function Scene:printObjs()
     for key, object in pairs(self.objects) do
-        print(object:name() .. " " .. key)
+        print(object:getName() .. " " .. key)
     end
 end
 

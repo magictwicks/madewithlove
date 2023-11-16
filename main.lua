@@ -24,7 +24,8 @@ function love.load()
     debugCanvas = s.createCanvas()
     -- instantiate objects
     myPlayer = Player:new()
-    myScene = Scene:new()
+    myScene = Scene:new({ collides=true })
+    
     -- add them to the scene
     myScene:add(myPlayer)
     -- loads all of the objects in the scene
