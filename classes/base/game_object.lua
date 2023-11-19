@@ -41,7 +41,7 @@ function GameObject:getID()
 end
 
 -- getter for _name
-function GameObject:name()
+function GameObject:getName()
     return self.name
 end
 
