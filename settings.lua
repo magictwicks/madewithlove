@@ -3,7 +3,9 @@ local Settings = {}
 Settings.scale = 4
 Settings.playerSpeed = 100
 Settings.projectileSpeed = 250
-Settings.enemySpeed = 120
+Settings.enemySpeed = 60
+
+Settings.showColliders = true
 
 function Settings.loadGraphics()
     customFont = love.graphics.newFont(12)

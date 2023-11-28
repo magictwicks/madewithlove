@@ -1,10 +1,10 @@
 s = require("settings")
 
-GameObject = require("classes/base/game_object")
-Projectile = GameObject:new()
+Entity = require("classes/base/entity")
+Projectile = Entity:new()
 
 function Projectile:load(scene, x, y)
-    self._name = "projectile"
+    self.name = "projectile"
     self.scene = scene
     self.sprite = love.graphics.newImage("/Assets/Sprites/projectile.png")
     self.sprite:setFilter('nearest', 'nearest') -- removes pixel blur 
@@ -30,6 +30,10 @@ function Projectile:update(dt)
         self:setActive(false)
         self.scene:remove(self)
     end
+end
+
+function Projectile:onCollisionEnter()
+
 end
 
 

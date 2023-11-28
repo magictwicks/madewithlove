@@ -3,7 +3,12 @@
 local GameObject = {}
 
 function GameObject:new() 
-    local instance = {name="game_object", active = true, } -- sets type if passed in 
+    local instance = {
+        name="game_object", 
+        active = true, 
+        x = 0,
+        y = 0
+    }
     setmetatable(instance, self)
     self.__index = self
     return instance
