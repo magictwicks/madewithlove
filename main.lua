@@ -4,14 +4,17 @@ local push = require("push") -- courtesy of Ulydev on GitHub
 -- Classes 
 local Player = require("classes/player")
 local Scene = require("classes/scene")
+
 local PlayerController = require("controllers/player_controller")
 local Projectile = require("classes/projectile")
 
 local Enemy = require("classes/enemy")
 local EnemyController = require("controllers/enemy_controller")
 
+local Explosion = require("classes/explosion")
+
 -- setup for push
-local gameWidth, gameHeight = 112, 128 -- fixed virtual game resolution
+local gameWidth, gameHeight = 224, 256 -- fixed virtual game resolution
 local windowWidth, windowHeight = love.window.getDesktopDimensions()
 windowWidth, windowHeight = gameWidth*4, gameHeight*4
 
@@ -26,13 +29,15 @@ function love.load()
     s.loadGraphics()
     debugCanvas = s.createCanvas()
     -- instantiate objects
-    myScene = Scene:new({ collides=true })
+    myScene = Scene:new({ collides=false })
     myPlayer = Player:new()
     myEnemy = Enemy:new()
-    
+    exp = Explosion:new()
+    exp:load(50, 50)
     -- add them to the scene
     myScene:add(myPlayer)
     myScene:add(myEnemy)
+    myScene:add(exp)
     -- loads all of the objects in the scene
     myScene:load()
 end

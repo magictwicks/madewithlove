@@ -3,11 +3,10 @@ s = require("settings")
 Entity = require("classes/base/entity")
 Projectile = Entity:new()
 
-function Projectile:load(scene, x, y)
-    self.name = "projectile"
+function Projectile:load(scene, x, y, name)
+    self.name = name or "projectile"
     self.scene = scene
     self.sprite = love.graphics.newImage("/Assets/Sprites/projectile.png")
-    self.sprite:setFilter('nearest', 'nearest') -- removes pixel blur 
     
     -- movement related
     self.x = x
@@ -32,9 +31,15 @@ function Projectile:update(dt)
     end
 end
 
-function Projectile:onCollisionEnter()
-
+function Projectile:onCollisionEnter(entity)
+    if entity:getName() == "enemy" and self.name == "projectile" then
+        entity:destroy()
+        self:destroy()
+    end
 end
 
+function Projectile:destroy()
+    self.scene:remove(self)
+end
 
 return Projectile

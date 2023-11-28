@@ -17,7 +17,7 @@ function EnemyController.run(scene, enemy, player, dt)
 
     if player.x == enemy.x then
         local proj = Projectile:new()
-        proj:load(scene, enemy.x, enemy.y)
+        proj:load(scene, enemy.x, enemy.y, "enemy_projectile")
         scene:add(proj)
     end
 end

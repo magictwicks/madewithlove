@@ -2,6 +2,8 @@ Projectile = require("classes/projectile")
 
 local PlayerController = {}
 
+PlayerController.spaceKeyDown = false
+
 function PlayerController.run(scene, player, dt)
     if love.keyboard.isDown('d') then
         player.x = player.x + (player.speed * dt)
@@ -20,10 +22,16 @@ function PlayerController.run(scene, player, dt)
     end 
 
     if love.keyboard.isDown('space') then
-        local proj = Projectile:new()
-        proj:load(scene, player.x, player.y)
-        scene:add(proj)
-    end 
+        if not PlayerController.spaceKeyDown then 
+            print("presseds")
+            local proj = Projectile:new()
+            proj:load(scene, player.x, player.y)
+            scene:add(proj)
+        end
+        PlayerController.spaceKeyDown = true
+    else 
+        PlayerController.spaceKeyDown = false
+    end
 end
 
 -- called by callback 'keypressed' in game loop

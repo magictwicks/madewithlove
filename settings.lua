@@ -5,7 +5,7 @@ Settings.playerSpeed = 100
 Settings.projectileSpeed = 250
 Settings.enemySpeed = 60
 
-Settings.showColliders = true
+Settings.showColliders = false
 
 function Settings.loadGraphics()
     customFont = love.graphics.newFont(12)

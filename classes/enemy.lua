@@ -22,9 +22,14 @@ function Enemy:draw()
 end
 
 function Enemy:onCollisionEnter(entity)
-    if entity:getName() == "player" then
-        self.scene:remove(self)
+    if entity:getName() == "projectile" then
+        entity:destroy()
+        self:destroy()
     end
+end
+
+function Enemy:destroy()
+    self.scene:remove(self)
 end
 
 return Enemy

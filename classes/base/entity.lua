@@ -9,7 +9,6 @@ function Entity:new()
     setmetatable(instance, self)
     self.__index = self
     -- instance variables
-    instance.isColliding = {} -- table of all objects the entity is in collision with
     instance.colSize = 8 -- the size of the collider... always square for now
     return instance
 end
@@ -34,14 +33,8 @@ function Entity:onCollisionEnter(entity)
     error("onCollisionEnter method needs to be implemented")
 end
 
--- called every frame an entity is still in collision
-function Entity:onCollisionStay(entity)
-    -- error("method needs to be implemented")
-end
-
--- called when an entity exits collision
-function Entity:onCollisionExit(entity)
-    -- error("method needs to be implemented")
+function Entity:destroy()
+    error("destroy method needs to be implemented")
 end
 
 function Entity:getColSize() 
