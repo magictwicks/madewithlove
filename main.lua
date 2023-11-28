@@ -26,9 +26,9 @@ function love.load()
     s.loadGraphics()
     debugCanvas = s.createCanvas()
     -- instantiate objects
+    myScene = Scene:new({ collides=true })
     myPlayer = Player:new()
     myEnemy = Enemy:new()
-    myScene = Scene:new({ collides=true })
     
     -- add them to the scene
     myScene:add(myPlayer)

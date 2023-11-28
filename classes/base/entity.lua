@@ -10,14 +10,14 @@ function Entity:new()
     self.__index = self
     -- instance variables
     instance.isColliding = {} -- table of all objects the entity is in collision with
-    instance.colSize = 0 -- the size of the collider... always square for now
+    instance.colSize = 8 -- the size of the collider... always square for now
     return instance
 end
 
 function Entity:collides(entity)
     -- half distance of collider
     local thisHalfDist = self.colSize / 2
-    local otherHalfDist = entity.colSize / 2
+    local otherHalfDist = entity:getColSize() / 2
 
     -- calculate the distance between center points
     local dx = math.abs((self.x + thisHalfDist) - (entity.x + otherHalfDist))
@@ -25,7 +25,7 @@ function Entity:collides(entity)
 
     -- calculate minimum x and y distance
     local m = thisHalfDist + otherHalfDist
-        I 
+
     return dx < m and dy < m
 end
 
@@ -42,6 +42,10 @@ end
 -- called when an entity exits collision
 function Entity:onCollisionExit(entity)
     -- error("method needs to be implemented")
+end
+
+function Entity:getColSize() 
+    return self.colSize
 end
 
 return Entity

@@ -21,7 +21,7 @@ end
 function Scene:load()
     print(self.objects)
     for _, object in pairs(self.objects) do 
-        object:load()
+        object:load(self)
     end
 end
 
@@ -41,7 +41,7 @@ function Scene:update(dt)
         if self.collides then
             -- implement collision detection
             for _, entity in pairs(self.objects) do
-                if object:collides(entity) then
+                if object:collides(entity) and object:getID() ~= entity:getID() then
                     object:onCollisionEnter(entity)
                 end
             end
