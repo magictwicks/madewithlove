@@ -28,7 +28,7 @@ function Player:setSprite(spr)
 end 
 
 function Player:onCollisionEnter()
-
+    
 end
 
 return Player

@@ -1,13 +1,13 @@
 -- Scene Class 
-local Scene = {}
+    local Scene = {}
 
 -- creates and returns a new instance of a scnene
-function Scene:new(objects, collides)
+function Scene:new(args)
     local instance = {}
     setmetatable(instance, self)
     self.__index = self
-    instance.objects = objects or {} -- empty if no parameter is passed
-    instance.collides = collides or false -- false by default
+    instance.objects = args.objects or {} -- empty if no parameter is passed
+    instance.collides = args.collides or false -- false by default
     instance._size = 0
     instance._counter = 0 -- used to generate sID values
     return instance
@@ -19,6 +19,7 @@ function Scene:objects()
 end
 
 function Scene:load()
+    print(self.objects)
     for _, object in pairs(self.objects) do 
         object:load()
     end
@@ -40,7 +41,9 @@ function Scene:update(dt)
         if self.collides then
             -- implement collision detection
             for _, entity in pairs(self.objects) do
-                
+                if object:collides(entity) then
+                    object:onCollisionEnter(entity)
+                end
             end
         end 
     end

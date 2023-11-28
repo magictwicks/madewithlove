@@ -15,7 +15,18 @@ function Entity:new()
 end
 
 function Entity:collides(entity)
-    -- if self.x + 
+    -- half distance of collider
+    local thisHalfDist = self.colSize / 2
+    local otherHalfDist = entity.colSize / 2
+
+    -- calculate the distance between center points
+    local dx = math.abs((self.x + thisHalfDist) - (entity.x + otherHalfDist))
+    local dy = math.abs((self.y + thisHalfDist) - (entity.y + otherHalfDist))
+
+    -- calculate minimum x and y distance
+    local m = thisHalfDist + otherHalfDist
+        I 
+    return dx < m and dy < m
 end
 
 -- called when an entity begins colliding; must be implemented by any Entity class
