@@ -7,6 +7,9 @@ local Scene = require("classes/scene")
 local PlayerController = require("controllers/player_controller")
 local Projectile = require("classes/projectile")
 
+local Enemy = require("classes/enemy")
+local EnemyController = require("controllers/enemy_controller")
+
 -- setup for push
 local gameWidth, gameHeight = 112, 128 -- fixed virtual game resolution
 local windowWidth, windowHeight = love.window.getDesktopDimensions()
@@ -24,9 +27,11 @@ function love.load()
     debugCanvas = s.createCanvas()
     -- instantiate objects
     myPlayer = Player:new()
+    myEnemy = Enemy:new()
     myScene = Scene:new()
     -- add them to the scene
     myScene:add(myPlayer)
+    myScene:add(myEnemy)
     -- loads all of the objects in the scene
     myScene:load()
 end
@@ -42,6 +47,7 @@ end
 
 function love.update(dt)
     PlayerController.run(myScene, myPlayer, dt)
+    EnemyController.run(myScene, myEnemy, myPlayer, dt)
     myScene:update(dt)
     -- myScene:flush()
 end
