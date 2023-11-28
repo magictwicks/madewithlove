@@ -7,8 +7,13 @@ local Scene = require("classes/scene")
 local PlayerController = require("controllers/player_controller")
 local Projectile = require("classes/projectile")
 
+local EnemyProjectile = require("classes/enemy_projectile")
 local Enemy = require("classes/enemy")
 local EnemyController = require("controllers/enemy_controller")
+
+local Enemy2 = require("classes/enemy2")
+local EnemyController2 = require("controllers/enemy2_controller")
+
 
 -- setup for push
 local gameWidth, gameHeight = 112, 128 -- fixed virtual game resolution

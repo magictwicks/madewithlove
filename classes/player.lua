@@ -13,8 +13,8 @@ function Player:load()
         default = love.graphics.newImage("/Assets/Sprites/Player/default.png")
     }
     self.sprite = self.sprites.default
-    self.x = 0
-    self.y = 0
+    self.x = 50
+    self.y = 120
     self.speed = s.playerSpeed
 end 
 

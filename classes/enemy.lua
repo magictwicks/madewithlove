@@ -5,9 +5,9 @@ Enemy = GameObject:new()
 
 function Enemy:load()
     self._name = "enemy"
-    self.sprite = love.graphics.newImage("/Assets/Sprites/enemy.png")
-    self.x = 0
-    self.y = 100
+    self.sprite = love.graphics.newImage("/Assets/Sprites/Enemy/enemy.png")
+    self.x = 50
+    self.y = 0
     self.speed = s.enemySpeed
 end
 
