@@ -63,7 +63,7 @@ end
 function Scene:debug(canvas)
     -- love.graphics.setCanvas(canvas) -- load canvas
     local sceneList = {}
-    for key, object in pairs(self.objects) do 
+    for _, object in ipairs(self.objects) do 
         sceneList[object:name()] = (sceneList[object:name()] or 0) + 1
     end
     local lineCount = 1
