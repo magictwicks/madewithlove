@@ -23,7 +23,6 @@ function PlayerController.run(scene, player, dt)
 
     if love.keyboard.isDown('space') then
         if not PlayerController.spaceKeyDown then 
-            print("presseds")
             local proj = Projectile:new()
             proj:load(scene, player.x, player.y)
             scene:add(proj)

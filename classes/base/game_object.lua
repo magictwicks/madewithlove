@@ -60,10 +60,12 @@ function GameObject:setActive(bool)
     self.active = bool
 end
 
-function GameObject:onCollision()
-
+function GameObject:collides()
+    return false
 end
 
-
+function GameObject:canCollide()
+    return false
+end
 
 return GameObject

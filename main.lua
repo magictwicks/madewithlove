@@ -28,16 +28,16 @@ function love.load()
 
     s.loadGraphics()
     debugCanvas = s.createCanvas()
+
     -- instantiate objects
-    myScene = Scene:new({ collides=false })
+    myScene = Scene:new({ collides=true })
     myPlayer = Player:new()
     myEnemy = Enemy:new()
-    exp = Explosion:new()
-    exp:load(50, 50)
+
     -- add them to the scene
     myScene:add(myPlayer)
     myScene:add(myEnemy)
-    myScene:add(exp)
+
     -- loads all of the objects in the scene
     myScene:load()
 end
@@ -73,8 +73,4 @@ function love.keypressed(key, scancode, isrepeat)
             print(key, value)
         end
     end
-end
-
-function love.keyreleased(key, scancode) 
-
 end

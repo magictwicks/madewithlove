@@ -1,12 +1,13 @@
 s = require("settings")
 
-GameObject = require("classes/base/game_object")
+Entity = require("classes/base/entity")
+Explosion = require("classes/explosion")
+
 Enemy = Entity:new()
 
 function Enemy:load(scene)
     self.name = "enemy"
     self.scene = scene
-    -- print(self.scene)
     self.sprite = love.graphics.newImage("/Assets/Sprites/enemy.png")
     self.x = 0
     self.y = 100
@@ -29,6 +30,8 @@ function Enemy:onCollisionEnter(entity)
 end
 
 function Enemy:destroy()
+    e = Explosion:new(self.scene, self.x, self.y)
+    self.scene:add(e)
     self.scene:remove(self)
 end
 

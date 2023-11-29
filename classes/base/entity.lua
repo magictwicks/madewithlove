@@ -14,6 +14,11 @@ function Entity:new()
 end
 
 function Entity:collides(entity)
+
+    if not entity:canCollide() then
+        return false
+    end
+
     -- half distance of collider
     local thisHalfDist = self.colSize / 2
     local otherHalfDist = entity:getColSize() / 2
@@ -39,6 +44,10 @@ end
 
 function Entity:getColSize() 
     return self.colSize
+end
+
+function Entity:canCollide()
+    return true
 end
 
 return Entity
