@@ -6,11 +6,12 @@ Explosion = require("classes/explosion")
 Enemy = Entity:new()
 
 function Enemy:load(scene)
-    self.name = "enemy"
+    self._name = "enemy"
+    self.sprite = love.graphics.newImage("/Assets/Sprites/Enemy/enemy.png")
     self.scene = scene
-    self.sprite = love.graphics.newImage("/Assets/Sprites/enemy.png")
-    self.x = 0
-    self.y = 100
+    -- print(self.scene)
+    self.x = 50
+    self.y = 0
     self.speed = s.enemySpeed
 end
 
