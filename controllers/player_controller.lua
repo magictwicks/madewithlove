@@ -23,21 +23,13 @@ function PlayerController.run(scene, player, dt)
 
     if love.keyboard.isDown('space') then
         if not PlayerController.spaceKeyDown then 
-            local proj = Projectile:new()
-            proj:load(scene, player.x, player.y)
+            local proj = Projectile:new(scene, player.x, player.y)
             scene:add(proj)
         end
         PlayerController.spaceKeyDown = true
     else 
         PlayerController.spaceKeyDown = false
     end
-end
-
--- called by callback 'keypressed' in game loop
-function PlayerController.shoot(scene, player)    
-    local proj = Projectile:new()
-    proj:load(scene, player.x, player.y)
-    scene:add(proj)
 end
 
 

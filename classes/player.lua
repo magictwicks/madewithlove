@@ -5,18 +5,24 @@ Entity = require("classes/base/entity")
 Player = Entity:new()
 
 -- defines the class variables for the player object (might need to reevaluate structure)
-function Player:load(scene)
-    self.name = "player"
-    self.scene = scene
-    self.sprites = {
+function Player:new(scene)
+    local instance = {name="Player"}
+    setmetatable(instance, self)
+    self.__index = self
+    
+    instance.name = "player"
+    instance.scene = scene
+    instance.sprites = {
         left = love.graphics.newImage("/Assets/Sprites/Player/left.png"),
         right = love.graphics.newImage("/Assets/Sprites/Player/right.png"),
         default = love.graphics.newImage("/Assets/Sprites/Player/default.png")
     }
-    self.sprite = self.sprites.default
-    self.x = 50
-    self.y = 120
-    self.speed = s.playerSpeed
+    instance.sprite = instance.sprites.default
+    instance.x = 50
+    instance.y = 120
+    instance.speed = s.playerSpeed
+
+    return instance
 end 
 
 -- draw method for Player class

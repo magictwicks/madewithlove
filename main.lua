@@ -35,15 +35,15 @@ function love.load()
 
     -- instantiate objects
     myScene = Scene:new({ collides=true })
-    myPlayer = Player:new()
-    myEnemy = Enemy:new()
+    myPlayer = Player:new(myScene)
+    myEnemy = Enemy:new(myScene)
 
     -- add them to the scene
     myScene:add(myPlayer)
     myScene:add(myEnemy)
 
     -- loads all of the objects in the scene
-    myScene:load()
+    -- myScene:load()
 end
 
 function love.draw()
@@ -64,9 +64,6 @@ end
 
 -- callback function if any key is pressed
 function love.keypressed(key, scancode, isrepeat) 
-    if key == 'space' then 
-        PlayerController.shoot(myScene, myPlayer)
-    end
     -- DEBUG: Print all objects in the Scene
     if key == 'p' then
         myScene:printObjs()
