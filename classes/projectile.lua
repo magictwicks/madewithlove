@@ -3,16 +3,20 @@ s = require("settings")
 Entity = require("classes/base/entity")
 Projectile = Entity:new()
 
-function Projectile:load(scene, x, y)
-    self.name = "projectile"
-    self.scene = scene
-    self.sprite = love.graphics.newImage("/Assets/Sprites/projectile.png")
-    self.sprite:setFilter('nearest', 'nearest') -- removes pixel blur 
+function Projectile:new(scene, x, y, n)
+    local instance = {} -- sets type if passed in 
+    setmetatable(instance, self)
+    self.__index = self
+
+    instance.name = name or "projectile"
+    instance.scene = scene
+    instance.sprite = love.graphics.newImage("/Assets/Sprites/projectile.png")
     
     -- movement related
-    self.x = x
-    self.y = y
-    self.speed = s.projectileSpeed
+    instance.x = x
+    instance.y = y
+    instance.speed = s.projectileSpeed
+    return instance
 end 
 
 -- draw method for Player class
@@ -32,9 +36,15 @@ function Projectile:update(dt)
     end
 end
 
-function Projectile:onCollisionEnter()
-
+function Projectile:onCollisionEnter(entity)
+    if entity:getName() == "enemy" and self.name == "projectile" then
+        entity:destroy()
+        self:destroy()
+    end
 end
 
+function Projectile:destroy()
+    self.scene:remove(self)
+end
 
 return Projectile

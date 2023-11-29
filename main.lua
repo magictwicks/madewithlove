@@ -4,6 +4,7 @@ local push = require("push") -- courtesy of Ulydev on GitHub
 -- Classes 
 local Player = require("classes/player")
 local Scene = require("classes/scene")
+
 local PlayerController = require("controllers/player_controller")
 local Projectile = require("classes/projectile")
 
@@ -11,12 +12,13 @@ local EnemyProjectile = require("classes/enemy_projectile")
 local Enemy = require("classes/enemy")
 local EnemyController = require("controllers/enemy_controller")
 
+local Explosion = require("classes/explosion")
 local Enemy2 = require("classes/enemy2")
 local EnemyController2 = require("controllers/enemy2_controller")
 
 
 -- setup for push
-local gameWidth, gameHeight = 112, 128 -- fixed virtual game resolution
+local gameWidth, gameHeight = 224, 256 -- fixed virtual game resolution
 local windowWidth, windowHeight = love.window.getDesktopDimensions()
 windowWidth, windowHeight = gameWidth*4, gameHeight*4
 
@@ -30,16 +32,18 @@ function love.load()
 
     s.loadGraphics()
     debugCanvas = s.createCanvas()
+
     -- instantiate objects
     myScene = Scene:new({ collides=true })
-    myPlayer = Player:new()
-    myEnemy = Enemy:new()
-    
+    myPlayer = Player:new(myScene)
+    myEnemy = Enemy:new(myScene)
+
     -- add them to the scene
     myScene:add(myPlayer)
     myScene:add(myEnemy)
+
     -- loads all of the objects in the scene
-    myScene:load()
+    -- myScene:load()
 end
 
 function love.draw()
@@ -60,9 +64,6 @@ end
 
 -- callback function if any key is pressed
 function love.keypressed(key, scancode, isrepeat) 
-    if key == 'space' then 
-        PlayerController.shoot(myScene, myPlayer)
-    end
     -- DEBUG: Print all objects in the Scene
     if key == 'p' then
         myScene:printObjs()
@@ -73,8 +74,4 @@ function love.keypressed(key, scancode, isrepeat)
             print(key, value)
         end
     end
-end
-
-function love.keyreleased(key, scancode) 
-
 end
