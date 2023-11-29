@@ -4,12 +4,12 @@ GameObject = require("classes/base/game_object")
 Enemy = Entity:new()
 
 function Enemy:load(scene)
-    self.name = "enemy"
+    self._name = "enemy"
+    self.sprite = love.graphics.newImage("/Assets/Sprites/Enemy/enemy.png")
     self.scene = scene
     -- print(self.scene)
-    self.sprite = love.graphics.newImage("/Assets/Sprites/enemy.png")
-    self.x = 0
-    self.y = 100
+    self.x = 50
+    self.y = 0
     self.speed = s.enemySpeed
 end
 
