@@ -22,6 +22,10 @@ end
 -- draw method for Player class
 function EnemyProjectile:draw() 
     love.graphics.draw(self.sprite, self.x, self.y)
+    
+    if s.showColliders then 
+        love.graphics.rectangle("line", self.x, self.y, self.colSize, self.colSize)
+    end
 end
 
 -- update method for EnemyProjectile class

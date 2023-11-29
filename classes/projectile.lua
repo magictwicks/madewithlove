@@ -10,10 +10,12 @@ function Projectile:new(scene, x, y, n)
 
     instance.name = n or "projectile"
     instance.scene = scene
-    instance.sprite = love.graphics.newImage("/Assets/Sprites/projectile.png")
+    instance.sprite = love.graphics.newImage("/Assets/Sprites/player_proj.png")
     
+    instance.colSize = 4
+
     -- movement related
-    instance.x = x
+    instance.x = x + 2
     instance.y = y
     instance.speed = s.projectileSpeed
     return instance
@@ -22,6 +24,10 @@ end
 -- draw method for Player class
 function Projectile:draw() 
     love.graphics.draw(self.sprite, self.x, self.y)
+    
+    if s.showColliders then 
+        love.graphics.rectangle("line", self.x, self.y, self.colSize, self.colSize)
+    end
 end
 
 -- update method for Projectile class

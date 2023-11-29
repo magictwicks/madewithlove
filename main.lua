@@ -67,4 +67,8 @@ function love.keypressed(key, scancode, isrepeat)
             print(key, value)
         end
     end
+
+    if key == 'c' then
+        s.showColliders = not s.showColliders
+    end
 end

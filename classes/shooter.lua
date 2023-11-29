@@ -18,23 +18,28 @@ function Shooter:new(args)
     instance.ySpacing = args.ySpacing or 20
     instance.maxY = args.maxY or 160
 
+    instance.timeToShoot = 1
+    instance.stopwatch = instance.timeToShoot
+    instance.canShoot = true
+
     return instance
 end
 
 function Shooter:update(dt)
-    -- Update the enemy's position based on the pattern
-    if self.x < self.xSpacing then
-        -- Move right
-        self.x = self.x + (self.speed * dt) 
-        self.y = self.y + (self.speed * dt) 
-    else
-        self.x = self.x - (self.speed * dt)
-        self.y = self.y + (self.speed * dt)
+    self.stopwatch = math.max(0, self.stopwatch - dt)
+
+    if (self.x > 0 and self.x < s.gameWidth and self.y > 0 and self.y < s.gameHeight and self.stopwatch == 0) then
+        canShoot = true
+    else 
+        canShoot = false
     end
 
-    if self.player.x - self.x > 1 or self.player.x - self.x < -1 then
-        local proj = EnemyProjectile:new(self.scene, self.x, self.y)
+    self.y = self.y + (self.speed * dt)
+    
+    if canShoot then
+        local proj = EnemyProjectile:new(self.scene, self.x + 4, self.y + 8)
         self.scene:add(proj)
+        self.stopwatch = self.timeToShoot
     end
 end
 

@@ -7,6 +7,7 @@ function Borg:new(args)
     setmetatable(instance, self)
     self.__index = self
 
+    instance.colSize = 6
     instance.sprite = love.graphics.newImage("/Assets/Sprites/Enemy/enemy3.png")
     instance.scene = args.scene
     instance.x = args.x or 0
