@@ -8,7 +8,7 @@ function Projectile:new(scene, x, y, n)
     setmetatable(instance, self)
     self.__index = self
 
-    instance.name = name or "projectile"
+    instance.name = n or "projectile"
     instance.scene = scene
     instance.sprite = love.graphics.newImage("/Assets/Sprites/projectile.png")
     
@@ -31,8 +31,7 @@ function Projectile:update(dt)
     -- destroy the projectile if it leaves the screen
     -- TODO: fix this cuz it no worky
     if (self.y < 0 and self.isActive) then
-        self:setActive(false)
-        self.scene:remove(self)
+        self:destroy()
     end
 end
 

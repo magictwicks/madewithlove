@@ -6,21 +6,12 @@ local Player = require("classes/player")
 local Scene = require("classes/scene")
 
 local PlayerController = require("controllers/player_controller")
-local Projectile = require("classes/projectile")
 
-local EnemyProjectile = require("classes/enemy_projectile")
-local Enemy = require("classes/enemy")
-local EnemyController = require("controllers/enemy_controller")
-
-local Explosion = require("classes/explosion")
-local Enemy2 = require("classes/enemy2")
-local EnemyController2 = require("controllers/enemy2_controller")
-
-
+local Borg = require("classes/borg")
+local Shooter = require("classes/shooter")
 -- setup for push
-local gameWidth, gameHeight = 224, 256 -- fixed virtual game resolution
-local windowWidth, windowHeight = love.window.getDesktopDimensions()
-windowWidth, windowHeight = gameWidth*4, gameHeight*4
+local gameWidth, gameHeight = s.gameWidth, s.gameHeight -- fixed virtual game resolution
+local windowWidth, windowHeight = gameWidth*4, gameHeight*4
 
 
 function love.load()
@@ -36,11 +27,13 @@ function love.load()
     -- instantiate objects
     myScene = Scene:new({ collides=true })
     myPlayer = Player:new(myScene)
-    myEnemy = Enemy:new(myScene)
+    myEnemy = Borg:new({ scene = myScene, x = 100, y = 0, speed = 20})
 
+    myEnemy2 = Shooter:new({ scene = myScene, player = myPlayer, x = 150, y = 0, speed = 20})
     -- add them to the scene
     myScene:add(myPlayer)
     myScene:add(myEnemy)
+    myScene:add(myEnemy2)
 
     -- loads all of the objects in the scene
     -- myScene:load()
@@ -57,7 +50,7 @@ end
 
 function love.update(dt)
     PlayerController.run(myScene, myPlayer, dt)
-    EnemyController.run(myScene, myEnemy, myPlayer, dt)
+    -- EnemyController.run(myScene, myEnemy, myPlayer, dt)
     myScene:update(dt)
     -- myScene:flush()
 end
