@@ -1,5 +1,7 @@
 local Settings = {}
 
+Settings.gameWidth = 224
+Settings.gameHeight = 256
 Settings.scale = 4
 Settings.playerSpeed = 100
 Settings.projectileSpeed = 250

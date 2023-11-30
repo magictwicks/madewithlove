@@ -1,28 +1,53 @@
-s =  require("settings")
+s = require("settings")
 
-GameObject = require("classes/base/game_object")
-EnemyProjectile = GameObject:new()
+Entity = require("classes/base/entity")
+EnemyProjectile = Entity:new()
 
-function EnemyProjectile:load(scene, x, y)
-    self._name = "projectile"
-    self.scene = scene
-    self.sprite = love.graphics.newImage("/Assets/Sprites/Enemy/enemy_projectile.png")
-    self.x = x
-    self.y = y
-    self.speed = s.projectileSpeed / 3
-end
+function EnemyProjectile:new(scene, x, y, n)
+    local instance = {} -- sets type if passed in 
+    setmetatable(instance, self)
+    self.__index = self
 
-function EnemyProjectile:draw()
+    instance.name = n or "enemy_projectile"
+    instance.scene = scene
+    instance.sprite = love.graphics.newImage("/Assets/Sprites/Enemy/enemy_projectile.png")
+    
+    -- movement related
+    instance.x = x
+    instance.y = y
+    instance.speed = s.projectileSpeed
+    return instance
+end 
+
+-- draw method for Player class
+function EnemyProjectile:draw() 
     love.graphics.draw(self.sprite, self.x, self.y)
+    
+    if s.showColliders then 
+        love.graphics.rectangle("line", self.x, self.y, self.colSize, self.colSize)
+    end
 end
 
+-- update method for EnemyProjectile class
 function EnemyProjectile:update(dt)
-    self.y = self.y + (self.speed * dt) / 2
-
-    if (self.y < 0 and self.isActive) then
-        self:setActive(false)
-        self.scene:remove(self)
+    self.y = self.y + (self.speed * dt)
+    
+    -- destroy the projectile if it leaves the screen
+    -- TODO: fix this cuz it no worky
+    if (self.y > s.gameHeight and self.isActive) then
+        self:destroy()
     end
+end
+
+function EnemyProjectile:onCollisionEnter(entity)
+    if entity:getName() == "enemy" and self.name == "projectile" then
+        entity:destroy()
+        self:destroy()
+    end
+end
+
+function EnemyProjectile:destroy()
+    self.scene:remove(self)
 end
 
 return EnemyProjectile
