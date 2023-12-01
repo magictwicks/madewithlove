@@ -22,8 +22,12 @@ function borgTriangle(scene, yoffset)
     end 
 end
 
-
-
+-- so there are 3 types of enemies at the moment... borgs, shooters, and orb shooters
+-- the borgs just travel straight down the screen
+-- the shooters shoot at a set interval and shoot a singular purple projectile
+-- shooters can also be created with the isOrb boolean set to true... this makes them orb shooters
+-- orb shooters shoot three orbs at a set interval... the three orbs burst and have a slight spread effect
+-- i think the best thing to do would be creating a lot of different patterns for enemies to spawn in!
 
 
 return GameManager
