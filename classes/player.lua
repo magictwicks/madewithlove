@@ -21,6 +21,9 @@ function Player:new(scene)
     instance.x = 50
     instance.y = 120
 
+    instance.timeToShoot = .2
+    instance.timer = instance.timeToShoot
+
     instance.speed = s.playerSpeed
     instance.health = s.playerHealth
 
