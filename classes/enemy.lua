@@ -30,7 +30,10 @@ end
 function Enemy:onCollisionEnter(entity)
     if entity:getName() == "projectile" then
         entity:destroy()
-        self:destroy()
+        self.health = self.health - 1
+        if self.health <= 0 then
+            self:destroy()
+        end
     end
 end
 
@@ -38,6 +41,7 @@ function Enemy:destroy()
     e = Explosion:new(self.scene, self.x, self.y)
     self.scene:add(e)
     self.scene:remove(self)
+    self.scene:updateScore(s.score[self:getName()])
 end
 
 return Enemy

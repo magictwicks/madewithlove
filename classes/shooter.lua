@@ -1,5 +1,6 @@
 Enemy = require("classes/enemy")
 EnemyProjectile = require("classes/enemy_projectile")
+OrbProjectile = require("classes/orb_projectile")
 Shooter = Enemy:new()
 
 function Shooter:new(args)
@@ -13,7 +14,8 @@ function Shooter:new(args)
     instance.x = args.x or 0
     instance.y = args.y or 0
     instance.speed = args.speed or 0
-
+    instance.health = s.shooterHealth
+    
     instance.xSpacing = args.xSpacing or 100
     instance.ySpacing = args.ySpacing or 20
     instance.maxY = args.maxY or 160
@@ -21,6 +23,8 @@ function Shooter:new(args)
     instance.timeToShoot = 1
     instance.stopwatch = instance.timeToShoot
     instance.canShoot = true
+
+    instance.isOrb = args.isOrb or false
 
     return instance
 end
@@ -36,11 +40,22 @@ function Shooter:update(dt)
 
     self.y = self.y + (self.speed * dt)
     
-    if canShoot then
+    if canShoot and not self.isOrb then
         local proj = EnemyProjectile:new(self.scene, self.x + 4, self.y + 8)
         self.scene:add(proj)
         self.stopwatch = self.timeToShoot
     end
+
+    if canShoot and self.isOrb then
+        local orb = OrbProjectile:new(self.scene, self.x + 4, self.y + 8)
+        self.scene:add(orb)
+        local orb1 = OrbProjectile:new(self.scene, self.x + 4, self.y + 8, 1)
+        self.scene:add(orb1)
+        local orb2 = OrbProjectile:new(self.scene, self.x + 4, self.y + 8, -1)
+        self.scene:add(orb2)
+        self.stopwatch = self.timeToShoot
+    end
+
 end
 
 return Shooter

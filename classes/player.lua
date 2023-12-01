@@ -20,9 +20,11 @@ function Player:new(scene)
     instance.sprite = instance.sprites.default
     instance.x = 50
     instance.y = 120
-    instance.speed = s.playerSpeed
 
-    return instance
+    instance.speed = s.playerSpeed
+    instance.health = s.playerHealth
+
+    return instance 
 end 
 
 -- draw method for Player class
@@ -39,7 +41,13 @@ function Player:setSprite(spr)
 end 
 
 function Player:onCollisionEnter(entity)
-    
+    if entity:getName() == "enemy_projectile" then
+        entity:destroy()
+        self.health = self.health - 1
+        if self.health <= 0 then
+            print("Player died")
+        end
+    end
 end
 
 return Player

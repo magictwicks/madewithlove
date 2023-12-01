@@ -13,6 +13,7 @@ function Borg:new(args)
     instance.x = args.x or 0
     instance.y = args.y or 0
     instance.speed = args.speed or 0
+    instance.health = s.borgHealth
 
     return instance
 end

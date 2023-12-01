@@ -10,6 +10,7 @@ function Scene:new(args)
     instance.collides = args.collides or false -- false by default
     instance._size = 0
     instance._counter = 0 -- used to generate sID values
+    instance.score = 0
     return instance
 end
 
@@ -30,6 +31,7 @@ function Scene:draw()
     for _, object in pairs(self.objects) do 
         object:draw()
     end
+    love.graphics.print("Score: " .. self.score, 0, 0)
 end
 
 -- loops over all of the objects and invokes their update method 
@@ -97,6 +99,10 @@ function Scene:flush()
             self:remove(object)
         end
     end
+end
+
+function Scene:updateScore(score)
+    self.score = self.score + score
 end
 
 return Scene

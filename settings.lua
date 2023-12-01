@@ -1,13 +1,23 @@
 local Settings = {}
 
-Settings.gameWidth = 224
-Settings.gameHeight = 256
+Settings.gameWidth = 128
+Settings.gameHeight = 224
 Settings.scale = 4
 Settings.playerSpeed = 100
 Settings.projectileSpeed = 250
 Settings.enemySpeed = 60
-
+Settings.playerHealth = 3
+Settings.borgHealth = 3
+Settings.borgScore = 25
+Settings.shooterHealth = 2
+Settings.shooterScore = 50
 Settings.showColliders = false
+Settings.showObjects = false
+Settings.score = {
+    ["Borg"] = 25, 
+    ["Shooter"] = 50
+}
+
 
 function Settings.loadGraphics()
     customFont = love.graphics.newFont(12)
