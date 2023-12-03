@@ -9,11 +9,17 @@ function Shooter:new(args)
     self.__index = self
 
     instance.sprite = love.graphics.newImage("/Assets/Sprites/Enemy/enemy2.png")
+
+    if args.isOrb then
+        instance.sprite = love.graphics.newImage("Assets/Sprites/Enemy/enemy.png")
+    end
+    
     instance.scene = args.scene
     instance.player = args.player
     instance.x = args.x or 0
     instance.y = args.y or 0
-    instance.speed = args.speed or 0
+
+    instance.speed = s.shooterSpeed 
     instance.health = s.shooterHealth
     
     instance.xSpacing = args.xSpacing or 100

@@ -15,7 +15,6 @@ function Enemy:new(scene)
     instance.scene = scene
     instance.x = 50
     instance.y = 0
-    instance.speed = s.enemySpeed
 
     return instance
 end
