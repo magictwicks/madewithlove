@@ -24,6 +24,8 @@ function Shooter:new(args)
     instance.stopwatch = instance.timeToShoot
     instance.canShoot = true
 
+    instance.isStrafe = true
+    instance.isMovingLeft = false
     instance.isOrb = args.isOrb or false
 
     if instance.isOrb then
@@ -36,18 +38,19 @@ end
 function Shooter:update(dt)
     self.stopwatch = math.max(0, self.stopwatch - dt)
 
-    local strafeRange = 10
+    if self.isStrafe then 
+        local strafeRange = 10
+        if self.x >= s.gameWidth - strafeRange then
+            self.isMovingLeft = true
+        elseif self.x <= strafeRange then
+            self.isMovingLeft = false
+        end
 
-    if self.x >= s.gameWidth - strafeRange then
-        self.isMovingLeft = true
-    elseif self.x <= strafeRange then
-        self.isMovingLeft = false
-    end
-
-    if self.isMovingLeft then
-        self.x = self.x - (self.speed * dt)
-    else
-        self.x = self.x + (self.speed * dt)
+        if self.isMovingLeft then
+            self.x = self.x - (self.speed * dt)
+        else
+            self.x = self.x + (self.speed * dt)
+        end
     end
 
     if (self.x > 0 and self.x < s.gameWidth and self.y > 0 and self.y < s.gameHeight and self.stopwatch == 0) then
