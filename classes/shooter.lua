@@ -40,6 +40,7 @@ function Shooter:update(dt)
 
     if self.isStrafe then 
         local strafeRange = 10
+        
         if self.x >= s.gameWidth - strafeRange then
             self.isMovingLeft = true
         elseif self.x <= strafeRange then
