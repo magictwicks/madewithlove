@@ -15,7 +15,7 @@ function OrbProjectile:new(scene, x, y, d, n)
     -- movement related
     instance.x = x
     instance.y = y
-    instance.speed = 150
+    instance.speed = s.orbSpeed
     instance.xSpeed = 50
     instance.direction = d or nil
     return instance

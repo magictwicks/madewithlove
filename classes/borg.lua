@@ -12,7 +12,7 @@ function Borg:new(args)
     instance.scene = args.scene
     instance.x = args.x or 0
     instance.y = args.y or 0
-    instance.speed = args.speed or 0
+    instance.speed = s.borgSpeed  
     instance.health = s.borgHealth
 
     return instance

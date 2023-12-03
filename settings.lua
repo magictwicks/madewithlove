@@ -1,18 +1,30 @@
 local Settings = {}
 
+Settings.speedScalar = 1
+
 Settings.gameWidth = 128
 Settings.gameHeight = 224
 Settings.scale = 4
+
 Settings.playerSpeed = 100
-Settings.projectileSpeed = 250
-Settings.enemySpeed = 60
+Settings.projectileSpeed = 150
+Settings.orbSpeed = 100
+
 Settings.playerHealth = 3
+
+Settings.borgSpeed = 20
 Settings.borgHealth = 3
 Settings.borgScore = 25
+
+Settings.shooterSpeed = 12
 Settings.shooterHealth = 2
 Settings.shooterScore = 50
+
 Settings.showColliders = false
 Settings.showObjects = false
+
+
+
 Settings.score = {
     ["Borg"] = 25, 
     ["Shooter"] = 50
