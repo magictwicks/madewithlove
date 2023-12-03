@@ -6,7 +6,6 @@ local Player = require("classes/player")
 local Scene = require("classes/scene")
 
 local PlayerController = require("controllers/player_controller")
-local GameManager = require("controllers/game_manager")
 
 local Borg = require("classes/borg")
 local Shooter = require("classes/shooter")
@@ -27,6 +26,7 @@ function love.load()
     debugCanvas = s.createCanvas()
 
     -- instantiate objects
+    GameManager = require("controllers/game_manager")
     myScene = Scene:new({ collides=true })
     myPlayer = Player:new(myScene)
     myEnemy = Borg:new({ scene = myScene, x = 100, y = 0, speed = 20})
@@ -35,7 +35,8 @@ function love.load()
     -- add them to the scene
     myScene:add(myPlayer)
     -- myScene:add(myEnemy2)
-    GameManager.spawnWave(myScene)
+    -- GameManager.spawnWave(myScene)
+    GameManager:init(myScene, love.timer.getTime())
 
     -- loads all of the objects in the scene
     -- myScene:load()
@@ -55,9 +56,8 @@ end
 
 function love.update(dt)
     PlayerController.run(myScene, myPlayer, dt)
-    -- EnemyController.run(myScene, myEnemy, myPlayer, dt)
     myScene:update(dt)
-    -- myScene:flush()
+    GameManager:update(dt)
 end
 
 -- callback function if any key is pressed

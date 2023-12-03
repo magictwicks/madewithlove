@@ -2,13 +2,27 @@ Borg = require("classes/borg")
 
 local GameManager = {}
 
+GameManager.spawnInterval = 10 -- in seconds
+
+function GameManager:init(scene, start)
+    self.scene = scene
+    self.startTime = start * 1000000
+    self.timeToSpawn = GameManager.spawnInterval
+end
+
+function GameManager:update(dt)
+    self.currTime = love.timer.getTime() * 1000000 - self.startTime -- time in seconds
+    self.timeToSpawn = self.timeToSpawn - love.timer.getDelta() -- subtracting the time between the last two frames (in seconds)
+    
+    if self.timeToSpawn <= 0 then
+        self.timeToSpawn = GameManager.spawnInterval
+        GameManager.spawnWave(self.scene)
+    end
+
+end
+
 function GameManager.spawnWave(scene)
     borgTriangle(scene, 0)
-    borgTriangle(scene, 16)
-    borgTriangle(scene, 32)
-    borgTriangle(scene, 48)
-    borgTriangle(scene, 64)
-    borgTriangle(scene, 72)
 end
 
 function borgTriangle(scene, yoffset) 
