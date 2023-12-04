@@ -1,8 +1,9 @@
 Borg = require("classes/borg")
+Shooter = require("classes/shooter")
 
 local GameManager = {}
 
-GameManager.spawnInterval = 10 -- in seconds
+GameManager.spawnInterval = 5 -- in seconds
 
 function GameManager:init(scene, start)
     self.scene = scene
@@ -23,6 +24,8 @@ end
 
 function GameManager.spawnWave(scene)
     borgTriangle(scene, 0)
+    shooterEnemy(scene, math.random(100), 0)
+    orbEnemy(scene, math.random(100), 0)
 end
 
 function borgTriangle(scene, yoffset) 
@@ -36,6 +39,19 @@ function borgTriangle(scene, yoffset)
     end 
 end
 
+function shooterEnemy(scene, x, y)
+    shooter = Shooter:new({scene=scene, x = x, y = y, speed = 20})
+    scene:add(shooter)
+    for i = 1, math.random(3), 1 do
+        shooter1 = Shooter:new({scene=scene, x = math.random(s.gameWidth), y = y, speed = 20})
+        scene:add(shooter1)
+    end
+end
+
+function orbEnemy(scene, x, y)
+    orb = Shooter:new({scene = scene, x = x, y = y, speed = 20, isOrb = true})
+    scene:add(orb)
+end 
 -- so there are 3 types of enemies at the moment... borgs, shooters, and orb shooters
 -- the borgs just travel straight down the screen
 -- the shooters shoot at a set interval and shoot a singular purple projectile
