@@ -84,6 +84,9 @@ function Shooter:update(dt)
         self.stopwatch = self.timeToShoot
     end
 
+    if self.y > s.gameHeight + 8 then
+        self:destroy()
+    end 
 end
 
 return Shooter
