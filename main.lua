@@ -112,6 +112,7 @@ function drawEndScreen()
         for line in scores:lines() do 
             lastLine = line
         end
+        scores:close()
     end
 
     local highscore = io.open("highscore.txt", "r")
@@ -122,7 +123,6 @@ function drawEndScreen()
         highscore:close()
     end
 
-    scores:close()
     love.graphics.draw(love.graphics.newImage("/Assets/Sprites/USS_Highscore.png"), 13, 32)
     love.graphics.print(high, s.gameWidth / 2 - 16, 50)
     love.graphics.draw(love.graphics.newImage("/Assets/Sprites/USS_Your_Score.png"), 12.5, 112)
