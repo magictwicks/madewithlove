@@ -83,29 +83,23 @@ function love.keypressed(key, scancode, isrepeat)
     if key == 'o' then
         s.showObjects = not s.showObjects
     end
+    if key == 'space' and not gameStart then
+        gameStart = true
+    end
 end
 
 gamestate = "title"
 
 function loadMenu()
     Menu.title = love.graphics.newImage('Assets/Sprites/USS_Title.png')
-    Menu.start = love.graphics.newImage('Assets/Sprites/USS_Start_button.png')
-    Menu.easy = love.graphics.newImage('Assets/Sprites/USS_Easy_button.png')
-    Menu.medium = love.graphics.newImage('Assets/Sprites/USS_Medium_Button.png')
-    Menu.hard = love.graphics.newImage('Assets/Sprites/USS_Hard_Button.png')
+    Menu.start = love.graphics.newImage('Assets/Sprites/USS_Press_Space.png')
 end
 
 function drawMainMenu()
     push:start()
 
     love.graphics.draw(love.graphics.newImage('Assets/Sprites/USS_Title.png'), 10, 20, 0, .7)
-    love.graphics.draw(love.graphics.newImage('Assets/Sprites/USS_Start_button.png'), 20, 100)
+    love.graphics.draw(love.graphics.newImage('Assets/Sprites/USS_Press_Space.png'), 20, 100 + math.sin(love.timer.getTime() * 5), 0, .8)
 
     push:finish()
-end
-
-function love.mousepressed (x,y, button)
-    if button == 1 then
-        gameStart = true
-    end
 end
