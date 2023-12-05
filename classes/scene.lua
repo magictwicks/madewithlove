@@ -11,6 +11,7 @@ function Scene:new(args)
     instance._size = 0
     instance._counter = 0 -- used to generate sID values
     instance.score = 0
+    instance.gamestate = "menu"
     return instance
 end
 
@@ -93,12 +94,14 @@ function Scene:printObjs()
     end
 end
 
-function Scene:flush()
-    for key, object in pairs(self.objects) do
-        if not object:isActive() then -- remove from scene if not active
+function Scene:reset()
+    for _, object in pairs(self.objects) do
+        if object:getName() ~= "player" then
             self:remove(object)
         end
     end
+    self.score = 0
+    self.gamestate = "menu"
 end
 
 function Scene:updateScore(score)

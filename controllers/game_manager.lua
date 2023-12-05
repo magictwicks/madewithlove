@@ -3,12 +3,10 @@ Shooter = require("classes/shooter")
 
 local GameManager = {}
 
-GameManager.spawnInterval = 7.5 -- in seconds
-
 function GameManager:init(scene, start)
     self.scene = scene
     self.startTime = start 
-    self.timeToSpawn = GameManager.spawnInterval
+    self.timeToSpawn = s.spawnInterval 
 end
 
 function GameManager:update(dt)
@@ -16,7 +14,7 @@ function GameManager:update(dt)
     self.timeToSpawn = self.timeToSpawn - love.timer.getDelta() -- subtracting the time between the last two frames (in seconds)
     
     if self.timeToSpawn <= 0 then
-        self.timeToSpawn = GameManager.spawnInterval
+        self.timeToSpawn = s.spawnInterval
         GameManager.spawnWave(self.scene)
     end
 end

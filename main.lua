@@ -28,28 +28,25 @@ function love.load()
     -- instantiate objects
     GameManager = require("controllers/game_manager")
     myScene = Scene:new({ collides=true })
-    myPlayer = Player:new(myScene)
+    myPlayer = Player:new(myScene, reset)
     
     -- add them to the scene
     myScene:add(myPlayer)
     -- myScene:add(myEnemy2)
     -- GameManager.spawnWave(myScene)
     GameManager:init(myScene, love.timer.getTime())
-
-    -- loads all of the objects in the scene
-    -- myScene:load()
 end
 
 function love.draw()
     push:start()
 
-    if gameStart then 
+    if myScene.gamestate == "game" then
         myScene:draw() -- renders all of the objects in the scene 
         if s.showObjects then
             myScene:debug(debugCanvas) -- prints list of elements in the scene
         end
     else
-        if gamestate == 'title' then
+        if myScene.gamestate == "menu" then
             drawMainMenu()
         end
     end
@@ -58,7 +55,7 @@ function love.draw()
 end
 
 function love.update(dt)
-    if gameStart then
+    if myScene.gamestate == "game" then
         PlayerController.run(myScene, myPlayer, dt)
         myScene:update(dt)
         GameManager:update(dt)
@@ -83,23 +80,26 @@ function love.keypressed(key, scancode, isrepeat)
     if key == 'o' then
         s.showObjects = not s.showObjects
     end
-    if key == 'space' and not gameStart then
-        gameStart = true
+    if key == 'space' and myScene.gamestate == "menu" then
+        myScene.gamestate = "game"
     end
 end
 
-gamestate = "title"
-
-function loadMenu()
-    Menu.title = love.graphics.newImage('Assets/Sprites/USS_Title.png')
-    Menu.start = love.graphics.newImage('Assets/Sprites/USS_Press_Space.png')
+function drawMainMenu()
+    thruster = {
+        love.graphics.newImage('Assets/Sprites/Thruster/sprite_0.png'),
+        love.graphics.newImage('Assets/Sprites/Thruster/sprite_1.png'),
+        love.graphics.newImage('Assets/Sprites/Thruster/sprite_2.png'),
+        love.graphics.newImage('Assets/Sprites/Thruster/sprite_3.png'),
+    }
+    love.graphics.draw(love.graphics.newImage('Assets/Sprites/USS_Title.png'), 10, 20, 0, .7)
+    love.graphics.draw(love.graphics.newImage('Assets/Sprites/USS_Press_Space.png'), 18.4, 100 + math.sin(love.timer.getTime() * 5), 0, .8)
+    love.graphics.draw(myPlayer.sprites.default, 50, 160, 0, 4)
+    love.graphics.draw(thruster[((math.floor(love.timer.getTime()*8)) % 4) + 1], 62, 188, 0, 4)
 end
 
-function drawMainMenu()
-    push:start()
-
-    love.graphics.draw(love.graphics.newImage('Assets/Sprites/USS_Title.png'), 10, 20, 0, .7)
-    love.graphics.draw(love.graphics.newImage('Assets/Sprites/USS_Press_Space.png'), 20, 100 + math.sin(love.timer.getTime() * 5), 0, .8)
-
-    push:finish()
+function reset()
+    myScene:reset()
+    myPlayer:reset()
+    GameManager:init(myScene, love.timer.getTime())
 end
