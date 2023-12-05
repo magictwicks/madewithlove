@@ -13,6 +13,7 @@ Settings.orbSpeed = 100 * Settings.speedScalar
 Settings.playerHealth = 5
 
 Settings.spawnInterval = 5
+Settings.difficultyInterval = 20
 
 Settings.borgSpeed = 20 * Settings.speedScalar
 Settings.borgHealth = 3
@@ -32,6 +33,12 @@ Settings.score = {
     ["Shooter"] = 50
 }
 
+function Settings.difficultyScale()
+    Settings.shooterSpeed = Settings.shooterSpeed * 1.1
+    Settings.borgSpeed = Settings.borgSpeed * 1.1
+    Settings.orbSpeed = Settings.orbSpeed * 1.1
+    Settings.projectileSpeed = Settings.projectileSpeed * 1.1
+end
 
 function Settings.loadGraphics()
     customFont = love.graphics.newFont(12)
