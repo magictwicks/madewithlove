@@ -6,17 +6,19 @@ Settings.gameWidth = 128
 Settings.gameHeight = 224
 Settings.scale = 4
 
-Settings.playerSpeed = 100
-Settings.projectileSpeed = 150
-Settings.orbSpeed = 100
+Settings.playerSpeed = 75
+Settings.projectileSpeed = 150 * Settings.speedScalar
+Settings.orbSpeed = 100 * Settings.speedScalar
 
-Settings.playerHealth = 3
+Settings.playerHealth = 5
 
-Settings.borgSpeed = 20
+Settings.spawnInterval = 5
+
+Settings.borgSpeed = 20 * Settings.speedScalar
 Settings.borgHealth = 3
 Settings.borgScore = 25
 
-Settings.shooterSpeed = 12
+Settings.shooterSpeed = 12 * Settings.speedScalar
 Settings.shooterHealth = 2
 Settings.shooterScore = 50
 

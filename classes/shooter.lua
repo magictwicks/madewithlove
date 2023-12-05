@@ -30,7 +30,7 @@ function Shooter:new(args)
     instance.stopwatch = instance.timeToShoot
     instance.canShoot = true
 
-    instance.isStrafe = true
+    instance.isStrafe = args.isStrafe
     instance.isMovingLeft = false
     instance.isOrb = args.isOrb or false
 

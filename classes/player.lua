@@ -5,8 +5,8 @@ Entity = require("classes/base/entity")
 Player = Entity:new()
 
 -- defines the class variables for the player object (might need to reevaluate structure)
-function Player:new(scene)
-    local instance = {name="Player"}
+function Player:new(scene, reset)
+    local instance = {}
     setmetatable(instance, self)
     self.__index = self
     
@@ -18,14 +18,16 @@ function Player:new(scene)
         default = love.graphics.newImage("/Assets/Sprites/Player/default.png")
     }
     instance.sprite = instance.sprites.default
-    instance.x = 50
-    instance.y = 120
+    instance.x = 64
+    instance.y = 168
 
     instance.timeToShoot = .2
     instance.timer = instance.timeToShoot
 
     instance.speed = s.playerSpeed
     instance.health = s.playerHealth
+
+    instance.onDeath = reset
 
     return instance 
 end 
@@ -37,6 +39,9 @@ function Player:draw()
         love.graphics.rectangle("line", self.x, self.y, self.colSize, self.colSize)
         love.graphics.points(self.x + (self.colSize / 2), self.y + (self.colSize / 2))
     end
+    for i = 1, self.health, 1  do
+        love.graphics.draw(self.sprites.default, 10 * i - 6, s.gameHeight - 10)
+    end
 end
 
 function Player:setSprite(spr)
@@ -44,13 +49,20 @@ function Player:setSprite(spr)
 end 
 
 function Player:onCollisionEnter(entity)
-    if entity:getName() == "enemy_projectile" then
+    if entity:getName() ~= "projectile"  then
         entity:destroy()
         self.health = self.health - 1
         if self.health <= 0 then
             print("Player died")
+            self.onDeath()
         end
     end
+end
+
+function Player:reset()
+    self.health = s.playerHealth
+    self.x = 64
+    self.y = 168
 end
 
 return Player
