@@ -37,6 +37,9 @@ function Player:draw()
         love.graphics.rectangle("line", self.x, self.y, self.colSize, self.colSize)
         love.graphics.points(self.x + (self.colSize / 2), self.y + (self.colSize / 2))
     end
+    for i = 1, self.health, 1  do
+        love.graphics.draw(self.sprites.default, 10 * i - 6, s.gameHeight - 10)
+    end
 end
 
 function Player:setSprite(spr)
@@ -49,6 +52,7 @@ function Player:onCollisionEnter(entity)
         self.health = self.health - 1
         if self.health <= 0 then
             print("Player died")
+            love.event.push("quit", "restart")
         end
     end
 end
