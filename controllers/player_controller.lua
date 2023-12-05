@@ -5,19 +5,19 @@ local PlayerController = {}
 PlayerController.spaceKeyDown = false
 
 function PlayerController.run(scene, player, dt)
-    if love.keyboard.isDown('d') then
+    if love.keyboard.isDown('d') and player.x < s.gameWidth - 8 then
         player.x = player.x + (player.speed * dt)
         player.sprite = player.sprites.right
-    elseif love.keyboard.isDown('a') then
+    elseif love.keyboard.isDown('a') and player.x > 0 then
         player.x = player.x - (player.speed * dt)
         player.sprite = player.sprites.left
     else 
         player.sprite = player.sprites.default
     end 
 
-    if love.keyboard.isDown('w') then
+    if love.keyboard.isDown('w') and player.y > 0 then
         player.y = player.y - (player.speed * dt)
-    elseif love.keyboard.isDown('s') then
+    elseif love.keyboard.isDown('s') and player.y < s.gameHeight - 8 then
         player.y = player.y + (player.speed * dt)
     end 
 
