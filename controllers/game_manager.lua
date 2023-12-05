@@ -1,20 +1,26 @@
 Borg = require("classes/borg")
 Shooter = require("classes/shooter")
+Settings = require("settings")
 
 local GameManager = {}
 
 function GameManager:init(scene, start)
     self.scene = scene
     self.startTime = start 
-    self.timeToSpawn = s.spawnInterval 
+    self.timeToSpawn = Settings.spawnInterval 
+    self.timeToScale = Settings.difficultyInterval
 end
 
 function GameManager:update(dt)
     self.currTime = love.timer.getTime() - self.startTime -- time in seconds
     self.timeToSpawn = self.timeToSpawn - love.timer.getDelta() -- subtracting the time between the last two frames (in seconds)
-    
+    self.timeToScale = self.timeToScale - love.timer.getDelta()
+    if self.timeToScale <= 0 then
+        self.timeToScale = Settings.difficultyInterval
+        Settings.difficultyScale()
+    end
     if self.timeToSpawn <= 0 then
-        self.timeToSpawn = s.spawnInterval
+        self.timeToSpawn = Settings.spawnInterval
         GameManager.spawnWave(self.scene)
     end
 end
