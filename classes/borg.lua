@@ -20,6 +20,10 @@ end
 
 function Borg:update(dt)
     self.y = self.y + (self.speed * dt)
+
+    if self.y > s.gameHeight + 8 then
+        self:destroy()
+    end 
 end
 
 return Borg

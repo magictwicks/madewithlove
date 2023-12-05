@@ -43,7 +43,7 @@ end
 
 function Projectile:onCollisionEnter(entity)
     if entity:getName() == "enemy" and self.name == "projectile" then
-        entity:destroy()
+        entity:destroy(true)
         self:destroy()
     end
 end

@@ -31,16 +31,18 @@ function Enemy:onCollisionEnter(entity)
         entity:destroy()
         self.health = self.health - 1
         if self.health <= 0 then
-            self:destroy()
+            self:destroy(true)
         end
     end
 end
 
-function Enemy:destroy()
+function Enemy:destroy(byPlayer)
     e = Explosion:new(self.scene, self.x, self.y)
     self.scene:add(e)
     self.scene:remove(self)
-    self.scene:updateScore(s.score[self:getName()])
+    if byPlayer then
+        self.scene:updateScore(s.score[self:getName()])
+    end
 end
 
 return Enemy
