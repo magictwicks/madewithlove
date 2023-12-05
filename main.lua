@@ -45,10 +45,10 @@ function love.draw()
         if s.showObjects then
             myScene:debug(debugCanvas) -- prints list of elements in the scene
         end
-    else
-        if myScene.gamestate == "menu" then
-            drawMainMenu()
-        end
+    elseif myScene.gamestate == "menu" then
+        drawMainMenu()
+    else 
+        endscreen()
     end
 
     push:finish()
