@@ -48,7 +48,7 @@ function love.draw()
     elseif myScene.gamestate == "menu" then
         drawMainMenu()
     else 
-        endscreen()
+        drawEndScreen()
     end
 
     push:finish()
@@ -80,9 +80,15 @@ function love.keypressed(key, scancode, isrepeat)
     if key == 'o' then
         s.showObjects = not s.showObjects
     end
-    if key == 'space' and myScene.gamestate == "menu" then
-        myScene.gamestate = "game"
+    if key == 'space' then
+        if myScene.gamestate == "menu" then
+            myScene.gamestate = "game"
+        end
+        if myScene.gamestate == "endscreen" then
+            myScene.gamestate = "menu"
+        end
     end
+
 end
 
 function drawMainMenu()
@@ -96,6 +102,31 @@ function drawMainMenu()
     love.graphics.draw(love.graphics.newImage('Assets/Sprites/USS_Press_Space.png'), 18.4, 100 + math.sin(love.timer.getTime() * 5), 0, .8)
     love.graphics.draw(myPlayer.sprites.default, 50, 160, 0, 4)
     love.graphics.draw(thruster[((math.floor(love.timer.getTime()*8)) % 4) + 1], 62, 188, 0, 4)
+end
+
+function drawEndScreen()
+    local scores = io.open("scoredata.txt", "r")
+    local lastLine = "placeholder"
+    
+    if scores then
+        for line in scores:lines() do 
+            lastLine = line
+        end
+    end
+
+    local highscore = io.open("highscore.txt", "r")
+    local high = 0
+
+    if highscore then
+        high = highscore:read("*a")
+        highscore:close()
+    end
+
+    scores:close()
+    love.graphics.draw(love.graphics.newImage("/Assets/Sprites/USS_Highscore.png"), 13, 32)
+    love.graphics.print(high, s.gameWidth / 2 - 16, 50)
+    love.graphics.draw(love.graphics.newImage("/Assets/Sprites/USS_Your_Score.png"), 12.5, 112)
+    love.graphics.print(lastLine, s.gameWidth / 2 - 16, 130)
 end
 
 function reset()
