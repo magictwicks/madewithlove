@@ -101,7 +101,7 @@ function Scene:reset()
         end
     end
     self.score = 0
-    self.gamestate = "menu"
+    self.gamestate = "endscreen"
 end
 
 function Scene:updateScore(score)

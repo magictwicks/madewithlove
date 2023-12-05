@@ -54,6 +54,22 @@ function Player:onCollisionEnter(entity)
         self.health = self.health - 1
         if self.health <= 0 then
             print("Player died")
+            local scores = io.open("scoredata.txt", "a")
+            if scores then
+                scores:write(self.scene.score .. "\n")
+                scores:close()
+            end
+
+            local highscore = io.open("highscore.txt", "r+")
+            if highscore then
+                local high = tonumber(highscore:read("*a")) 
+                if self.scene.score > high then
+                    highscore:seek("set", 0)
+                    highscore:write(self.scene.score)
+                end
+                highscore:close()
+            end
+
             self.onDeath()
         end
     end
