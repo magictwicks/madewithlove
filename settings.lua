@@ -8,17 +8,18 @@ Settings.scale = 4
 
 Settings.playerSpeed = 75
 Settings.projectileSpeed = 150 * Settings.speedScalar
-Settings.orbSpeed = 100 * Settings.speedScalar
+Settings.orbSpeed = 50 * Settings.speedScalar
 
 Settings.playerHealth = 5
 
 Settings.spawnInterval = 5
-Settings.difficultyInterval = 20
+Settings.difficultyInterval = 15
 
 Settings.borgSpeed = 20 * Settings.speedScalar
-Settings.borgHealth = 3
+Settings.borgHealth = 1
 Settings.borgScore = 25
 
+Settings.shootInterval = 4
 Settings.shooterSpeed = 12 * Settings.speedScalar
 Settings.shooterHealth = 2
 Settings.shooterScore = 50
@@ -35,6 +36,7 @@ Settings.score = {
 
 function Settings.difficultyScale()
     Settings.shooterSpeed = Settings.shooterSpeed * 1.1
+    Settings.shootInterval = Settings.shootInterval * 0.9
     Settings.borgSpeed = Settings.borgSpeed * 1.1
     Settings.orbSpeed = Settings.orbSpeed * 1.1
     Settings.projectileSpeed = Settings.projectileSpeed * 1.1
