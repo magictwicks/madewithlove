@@ -1,3 +1,5 @@
+Background = require("classes/background")
+Background:new()
 -- Scene Class 
     local Scene = {}
 
@@ -29,6 +31,7 @@ end
 
 -- loops over all of the objects and invokes their draw method 
 function Scene:draw()
+    Background:draw()
     for _, object in pairs(self.objects) do 
         object:draw()
     end
@@ -37,6 +40,7 @@ end
 
 -- loops over all of the objects and invokes their update method 
 function Scene:update(dt)
+    Background:update(dt)
     for _, object in pairs(self.objects) do 
         if object:isActive() then
             object:update(dt)
