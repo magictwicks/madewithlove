@@ -13,13 +13,13 @@ Settings.orbSpeed = 50 * Settings.speedScalar
 Settings.playerHealth = 5
 
 Settings.spawnInterval = 5
-Settings.difficultyInterval = 15
+Settings.difficultyInterval = 10
 
 Settings.borgSpeed = 20 * Settings.speedScalar
 Settings.borgHealth = 1
 Settings.borgScore = 25
 
-Settings.shootInterval = 4
+Settings.shootInterval = 3
 Settings.shooterSpeed = 12 * Settings.speedScalar
 Settings.shooterHealth = 2
 Settings.shooterScore = 50
