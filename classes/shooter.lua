@@ -26,7 +26,7 @@ function Shooter:new(args)
     instance.ySpacing = args.ySpacing or 20
     instance.maxY = args.maxY or 160
 
-    instance.timeToShoot = 1
+    instance.timeToShoot = s.shootInterval
     instance.stopwatch = instance.timeToShoot
     instance.canShoot = true
 
